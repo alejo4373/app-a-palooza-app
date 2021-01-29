@@ -24,6 +24,7 @@ Root endpoint: `{{server_address}}/api`
 
 | Method | Endpoint            | Description                            | Priority |
 | ------ | ------------------- | -------------------------------------- | -------- |
+| `POST` | `/users`            | Add a new user with its goal           | 1        |
 | `POST` | `/job_applications` | Add a new job application              | 1        |
 | `GET`  | `/job_applications` | Get all users' job applications        | 2        |
 | `GET`  | `/community/goal`   | Sum of all users goals (the community) | 3        |
@@ -35,10 +36,10 @@ Root endpoint: `{{server_address}}/api`
 
 Broadcast to all clients
 
-| Message                | Payload             | Description                     |
-| ---------------------- | ------------------- | ------------------------------- |
-| `NEW_APPLICATION_SENT` | `{job_application}` | To update progress towards goal |
-| `NEW_USER_REGISTERED`  | `new_user_goal`     | To update community goal        |
+| Message                 | Payload             | Description                     |
+| ----------------------- | ------------------- | ------------------------------- |
+| `NEW_APPLICATION_ADDED` | `{job_application}` | To update progress towards goal |
+| `NEW_USER_ADDED`        | `new_user_goal`     | To update community goal        |
 
 ## Client
 
@@ -56,4 +57,5 @@ Broadcast to all clients
 * Web Sockets
 * Chart React Library (maybe unnecessary) use px in css as %
 * Notification library when someone submits a job.
+* Persistent session storage.
 
