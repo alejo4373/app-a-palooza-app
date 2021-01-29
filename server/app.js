@@ -26,6 +26,6 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/job-applications', jobApplications);
-app.use('/users', usersRouter);
+app.use('/api/users', usersRouter);
 
 module.exports = app;
