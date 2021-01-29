@@ -23,4 +23,16 @@ router.post('/', async (req, res, next) => {
 
 })
 
+router.get('/count', async (req, res, next) => {
+  try {
+    const count = await JobApplications.getCount()
+    res.json({
+      message: "Retrieved count of all job applications",
+      count
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
 module.exports = router;

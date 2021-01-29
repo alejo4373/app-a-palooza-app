@@ -8,6 +8,11 @@ const add = (application) => {
     `, application)
 }
 
+const getCount = () => {
+  return db.one(`SELECT count(id) FROM job_applications`)
+}
+
 module.exports = {
-  add
+  add,
+  getCount
 }
