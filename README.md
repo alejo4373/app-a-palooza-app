@@ -16,19 +16,25 @@ Humans like to see numbers go up and thinking that your job application as a sin
 
 [Found here](https://dbdiagram.io/d/60138d2380d742080a384e16)
 
+## GUI Designs
+
+[On Figma here](https://www.figma.com/file/Pr6nGTZCEgSN6uxjX3Ym59/App-a-palooza?node-id=0%3A1)
+
 ## Server 
 
 ### Endpoints
 
 Root endpoint: `{{server_address}}/api`
 
-| Method | Endpoint            | Description                            | Priority |
-| ------ | ------------------- | -------------------------------------- | -------- |
-| `POST` | `/users`            | Add a new user with its goal           | 1        |
-| `POST` | `/job_applications` | Add a new job application              | 1        |
-| `GET`  | `/job_applications` | Get all users' job applications        | 2        |
-| `GET`  | `/community/goal`   | Sum of all users goals (the community) | 3        |
-| `GET`  | `/:username/goal`   | Retrieve a single user's goals         | 4        |
+| Method | Endpoint                           | Description                              | Done/Priority |
+| ------ | ---------------------------------- | ---------------------------------------- | ------------- |
+| `POST` | `/users`                           | Add a new user with its goal             | ✅ / 1         |
+| `GET`  | `/users/current`                   | Retrieve the current session information | ✅ / 2         |
+| `POST` | `/job-applications`                | Add a new job application                | ✅ / 1         |
+| `GET`  | `/job-applications`                | Get all users' job applications          | ☑️ / 4         |
+| `GET`  | `/job-applications/count`          | Get count of all users' job applications | ✅ / 2         |
+| `GET`  | `/job-applications/community/goal` | Sum of all users goals (the community)   | ✅ / 2         |
+| `GET`  | `/job-applications/user/goal`      | Retrieve a current user's goals          | ✅ / 3         |
 
 ### Web Sockets Messages
 
@@ -43,11 +49,11 @@ Broadcast to all clients
 
 ## Client
 
-| Page       | Description                                |
-| ---------- | ------------------------------------------ |
-| /register  | User registration and goal setting form    |
-| /home      | Display community and users' personal goal |
-| /community | Display community goal only                |
+| Page       | Description                                              |
+| ---------- | -------------------------------------------------------- |
+| /          | Display community and users' personal goal with progress |
+| /register  | User registration and goal setting form                  |
+| /community | Display community and progress goal only                 |
 
 ## Steps/Components
 
@@ -55,7 +61,6 @@ Broadcast to all clients
 * Database
 * Server
 * Web Sockets
-* Chart React Library (maybe unnecessary) use px in css as %
 * Notification library when someone submits a job.
 * Persistent session storage.
-
+* Chart React Library (maybe unnecessary) use px in css as %
