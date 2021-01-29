@@ -35,4 +35,16 @@ router.get('/count', async (req, res, next) => {
   }
 })
 
+router.get('/community/goal', async (req, res, next) => {
+  try {
+    const data = await JobApplications.getCommunityGoal()
+    res.json({
+      message: "Retrieved job applications community goal",
+      goal: data.sum
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
 module.exports = router;

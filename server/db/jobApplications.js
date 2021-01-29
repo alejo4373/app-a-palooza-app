@@ -12,7 +12,13 @@ const getCount = () => {
   return db.one(`SELECT count(id) FROM job_applications`)
 }
 
+const getCommunityGoal = () => {
+  return db.one(`SELECT SUM(n_job_apps_goal) FROM users`)
+}
+
+
 module.exports = {
   add,
-  getCount
+  getCount,
+  getCommunityGoal
 }
