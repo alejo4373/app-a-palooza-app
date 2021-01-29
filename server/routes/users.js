@@ -22,4 +22,19 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+router.get('/current', (req, res, next) => {
+  if (req.session.userId) {
+    res.json({
+      message: "Retrieved current user session",
+      user: {
+        id: req.session.userId,
+        name: req.session.userName
+      }
+    })
+  } else {
+    res.json({
+      message: "No current user session",
+    })
+  }
+})
 module.exports = router;
