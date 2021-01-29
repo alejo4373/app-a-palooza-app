@@ -47,4 +47,18 @@ router.get('/community/goal', async (req, res, next) => {
   }
 })
 
+router.get('/user/goal', async (req, res, next) => {
+  const { userId } = req.session
+  try {
+    const data = await JobApplications.getUserGoal(userId)
+    res.json({
+      message: "Retrieved user's job applications goal",
+      goal: data.n_job_apps_goal
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
+
 module.exports = router;

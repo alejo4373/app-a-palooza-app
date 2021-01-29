@@ -16,9 +16,13 @@ const getCommunityGoal = () => {
   return db.one(`SELECT SUM(n_job_apps_goal) FROM users`)
 }
 
+const getUserGoal = (userId) => {
+  return db.one(`SELECT n_job_apps_goal FROM users WHERE id = $1`, userId)
+}
 
 module.exports = {
   add,
   getCount,
-  getCommunityGoal
+  getCommunityGoal,
+  getUserGoal
 }
