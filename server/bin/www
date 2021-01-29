@@ -6,6 +6,7 @@
 
 var app = require('../app');
 var debug = require('debug')('server:server');
+var webSockets = require('../webSockets');
 var http = require('http');
 
 /**
@@ -20,6 +21,14 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+/**
+ * Set up Web Sockets
+ */
+
+const wss = webSockets.init(server)
+app.locals.wss = wss // Make wss available to app middleware
+
 
 /**
  * Listen on provided port, on all network interfaces.
