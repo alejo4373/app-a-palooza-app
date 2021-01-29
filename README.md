@@ -1,0 +1,59 @@
+# App-A-Palooza-App
+
+An app to be used during the App-A-Palooza part of the Own Your Pursuit Event.
+
+App-A-Palooza is an event where fellows apply to as many jobs as they can in a set amount of time.
+
+This app will let fellows set a personal goal regarding the number of Job Applications they want to send during the event, aggregate the numbers in a community target and display a single bar Bar Chart that will go up towards the community target every time a fellow submits an application.
+
+At the end of the event the community will be able to see if they collectively hit the target
+
+## Motivation
+
+Humans like to see numbers go up and thinking that your job application as a single fellow helps the overall number go up can serve as a motivator to send more applications than what might be thought possible.
+
+## DB Diagram
+
+[Found here](https://dbdiagram.io/d/60138d2380d742080a384e16)
+
+## Server 
+
+### Endpoints
+
+Root endpoint: `{{server_address}}/api`
+
+| Method | Endpoint            | Description                            | Priority |
+| ------ | ------------------- | -------------------------------------- | -------- |
+| `POST` | `/job_applications` | Add a new job application              | 1        |
+| `GET`  | `/job_applications` | Get all users' job applications        | 2        |
+| `GET`  | `/community/goal`   | Sum of all users goals (the community) | 3        |
+| `GET`  | `/:username/goal`   | Retrieve a single user's goals         | 4        |
+
+### Web Sockets Messages
+
+#### Server -> Client
+
+Broadcast to all clients
+
+| Message                | Payload             | Description                     |
+| ---------------------- | ------------------- | ------------------------------- |
+| `NEW_APPLICATION_SENT` | `{job_application}` | To update progress towards goal |
+| `NEW_USER_REGISTERED`  | `new_user_goal`     | To update community goal        |
+
+## Client
+
+| Page       | Description                                |
+| ---------- | ------------------------------------------ |
+| /register  | User registration and goal setting form    |
+| /home      | Display community and users' personal goal |
+| /community | Display community goal only                |
+
+## Steps/Components
+
+* React
+* Database
+* Server
+* Web Sockets
+* Chart React Library (maybe unnecessary) use px in css as %
+* Notification library when someone submits a job.
+
