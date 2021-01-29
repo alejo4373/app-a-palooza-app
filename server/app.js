@@ -4,11 +4,13 @@ var logger = require('morgan');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session)
 const db = require('./db')
+const cors = require('cors')
 var jobApplications = require('./routes/jobApplications');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
+app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
