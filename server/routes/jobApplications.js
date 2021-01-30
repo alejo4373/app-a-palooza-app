@@ -23,12 +23,12 @@ router.post('/', async (req, res, next) => {
 
 })
 
-router.get('/count', async (req, res, next) => {
+router.get('/community/count', async (req, res, next) => {
   try {
-    const count = await JobApplications.getCount()
+    const data = await JobApplications.getCount()
     res.json({
       message: "Retrieved count of all job applications",
-      count
+      count: data.count
     })
   } catch (err) {
     next(err)
