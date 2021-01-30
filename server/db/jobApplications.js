@@ -20,9 +20,17 @@ const getUserGoal = (userId) => {
   return db.one(`SELECT n_job_apps_goal FROM users WHERE id = $1`, userId)
 }
 
+const getUserCount = (userId) => {
+  return db.one(`
+    SELECT count(user_id) FROM job_applications WHERE user_id = $1`,
+    userId
+  )
+}
+
 module.exports = {
   add,
   getCount,
   getCommunityGoal,
-  getUserGoal
+  getUserGoal,
+  getUserCount
 }

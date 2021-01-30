@@ -60,5 +60,17 @@ router.get('/user/goal', async (req, res, next) => {
   }
 })
 
+router.get('/user/count', async (req, res, next) => {
+  const { user } = req.session
+  try {
+    const data = await JobApplications.getUserCount(user.id)
+    res.json({
+      message: "Retrieved user's job applications count",
+      goal: data.count
+    })
+  } catch (err) {
+    next(err)
+  }
+})
 
 module.exports = router;
