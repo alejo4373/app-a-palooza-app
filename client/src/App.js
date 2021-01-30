@@ -1,6 +1,6 @@
 import './App.css';
 import 'semantic-ui-css/semantic.min.css'
-import { Switch, Route, Link } from 'react-router-dom'
+import { Switch, Route, Link, Redirect } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import GoalsDisplay from './components/GoalsDisplay'
 import RegistrationForm from './components/RegistrationForm';
@@ -34,14 +34,17 @@ function App() {
         <Link to="/register">Register</Link>
       </nav>
       <Switch>
-        <Route exact path="/">
-          <GoalsDisplay user={user} />
+        <Route exact path="/">{
+          !user
+            ? <Redirect to="/register" />
+            : <GoalsDisplay user={user} />
+        }
         </Route>
         <Route path="/register">
           <RegistrationForm user={user} setUser={setUser} />
         </Route>
         <Route path="/community">
-          <h1>community</h1>
+          <GoalsDisplay />
         </Route>
       </Switch>
     </div>

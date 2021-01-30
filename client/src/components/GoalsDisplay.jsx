@@ -1,4 +1,3 @@
-import { Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Form, Input, Button, Progress } from 'semantic-ui-react';
 import { useToasts } from 'react-toast-notifications';
@@ -64,7 +63,7 @@ const GoalDisplay = ({ user }) => {
 
         switch (type) {
           case "NEW_APPLICATION_ADDED":
-            if (payload.user.id === user.id) {
+            if (user && payload.user.id === user.id) {
               setCount(count => parseInt(count) + 1)
             }
             setCommunityCount(count => parseInt(count) + 1)
@@ -116,7 +115,6 @@ const GoalDisplay = ({ user }) => {
     fetchUserJobAppsCount()
   }, [])
 
-  if (!user) return <Redirect to="/register" />
   return (
     <div>
       <h1>Progress</h1>
@@ -129,18 +127,24 @@ const GoalDisplay = ({ user }) => {
           size='big'
         />
       </div>
-      <h2>You: {`${userCount} / ${user.n_job_apps_goal}`}</h2>
-      <Form size="big" onSubmit={handleSubmit}>
-        <Form.Field>
-          <label>Company Name:</label>
-          <Input
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
-            placeholder="ACME"
-          />
-        </Form.Field>
-        <Button size="big" fluid primary>+1 Applied</Button>
-      </Form>
+      {
+        user ? (
+          <>
+            <h2>You: {`${userCount} / ${user.n_job_apps_goal}`}</h2>
+            <Form size="big" onSubmit={handleSubmit}>
+              <Form.Field>
+                <label>Company Name:</label>
+                <Input
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  placeholder="ACME"
+                />
+              </Form.Field>
+              <Button size="big" fluid primary>+1 Applied</Button>
+            </Form>
+          </>
+        ) : null
+      }
     </div>
   )
 }
