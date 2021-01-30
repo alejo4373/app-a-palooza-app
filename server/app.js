@@ -25,9 +25,14 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24 // 1 days
   }
 }))
+app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/job-applications', jobApplications);
 app.use('/api/users', usersRouter);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
 
 module.exports = app;
