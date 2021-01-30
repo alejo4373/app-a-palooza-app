@@ -31,9 +31,9 @@ const RegistrationForm = ({ user, setUser }) => {
   return (
     <div>
       <h2>Welcome to Own Your Pursuit App-A-Palooza 🎉</h2>
-      <p>App-A-Palooza is an event where you apply to as many jobs in the set amount of time.</p>
-      <p>This app will let you set a personal goal for how many Job Applications you want to send today. Make sure to set a realistic goal since you only have on an a half hours. </p>
-      <p>Your goal will be part of 6.0 Own Your Pursuit Community Goal. Every time you submit an application you will closer to your goal but also it will count towards the community goal and the bar will go up. Your personal goal will never be revealed.</p>
+      <p>App-A-Palooza is an event where you apply to as many jobs as possible in a set amount of time.</p>
+      <p>This app will let you set a personal goal for how many Job Applications you want to send today. Make sure to set a realistic goal since you only have one and a half hours. </p>
+      <p>Your goal will be part of 6.0 Own Your Pursuit Community Goal (sum of everyone's goal). Every time you submit an application you will be closer to your own personal goal and therefore the community goal. Your personal goal will never be revealed.</p>
       <Form size="huge" onSubmit={handleSubmit}>
         <Form.Field>
           <label>Name:</label>
