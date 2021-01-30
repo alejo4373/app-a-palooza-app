@@ -66,7 +66,7 @@ router.get('/user/count', async (req, res, next) => {
     const data = await JobApplications.getUserCount(user.id)
     res.json({
       message: "Retrieved user's job applications count",
-      goal: data.count
+      count: data.count
     })
   } catch (err) {
     next(err)
