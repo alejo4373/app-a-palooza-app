@@ -1,6 +1,7 @@
 import { Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Form, Input, Button, Progress } from 'semantic-ui-react';
+import { useToasts } from 'react-toast-notifications';
 
 const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
 const SOCKET_ADDRESS = `${WS_PROTOCOL}//${window.location.host}/my-websockets`
@@ -11,6 +12,7 @@ const GoalDisplay = ({ user }) => {
   const [communityCount, setCommunityCount] = useState(0)
   const [userCount, setCount] = useState(0)
   const [companyName, setCompanyName] = useState('')
+  const { addToast } = useToasts()
 
   const fetchCommunityGoal = async () => {
     try {
@@ -66,6 +68,11 @@ const GoalDisplay = ({ user }) => {
               setCount(count => parseInt(count) + 1)
             }
             setCommunityCount(count => parseInt(count) + 1)
+            const message = `${payload.user.name} just sent an application 🎉`
+            addToast(message, {
+              appearance: 'success',
+              autoDismiss: true
+            })
             break;
           case "NEW_USER_ADDED":
             setCommunityGoal(goal => parseInt(goal) + payload.user.n_job_apps_goal)
