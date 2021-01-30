@@ -16,6 +16,5 @@
 }
 
 .progress-bar-container > .progress >.bar > .progress {
-  color: red;
   transform: rotate(90deg);
 }
