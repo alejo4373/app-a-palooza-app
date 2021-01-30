@@ -10,7 +10,7 @@ router.post('/', async (req, res, next) => {
     // Store user info in the session for use when adding an application
     req.session.user = user
 
-    wss.broadcast({ type: 'NEW_USER_ADDED', payload: user })
+    wss.broadcast({ type: 'NEW_USER_ADDED', payload: { user } })
 
     res.status(201).json({
       message: "User Added",

@@ -62,7 +62,13 @@ const GoalDisplay = ({ user }) => {
 
         switch (type) {
           case "NEW_APPLICATION_ADDED":
-            setCount(count => parseInt(count) + 1)
+            if (payload.user.id === user.id) {
+              setCount(count => parseInt(count) + 1)
+            }
+            setCommunityCount(count => parseInt(count) + 1)
+            break;
+          case "NEW_USER_ADDED":
+            setCommunityGoal(goal => parseInt(goal) + payload.user.n_job_apps_goal)
             break;
           default:
             console.log("socket message:", JSON.stringify(e))
