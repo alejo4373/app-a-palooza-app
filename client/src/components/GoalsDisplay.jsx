@@ -1,6 +1,6 @@
 import { Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Form, Input, Button } from 'semantic-ui-react';
+import { Form, Input, Button, Progress } from 'semantic-ui-react';
 
 const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
 const SOCKET_ADDRESS = `${WS_PROTOCOL}//${window.location.host}/my-websockets`
@@ -114,6 +114,14 @@ const GoalDisplay = ({ user }) => {
     <div>
       <h1>Progress</h1>
       <h2>Community: {`${communityCount} / ${communityGoal}`}</h2>
+      <div className="progress-bar-container">
+        <Progress
+          percent={((communityCount / communityGoal) * 100).toFixed(1)}
+          indicating
+          progress
+          size='big'
+        />
+      </div>
       <h2>You: {`${userCount} / ${user.n_job_apps_goal}`}</h2>
       <Form size="big" onSubmit={handleSubmit}>
         <Form.Field>
