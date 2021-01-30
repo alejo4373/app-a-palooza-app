@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Form, Input, Button, Progress } from 'semantic-ui-react';
+import { Form, Input, Button, Progress, Message, Container, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 
 const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
@@ -117,8 +118,7 @@ const GoalDisplay = ({ user }) => {
 
   return (
     <div>
-      <h1>Progress</h1>
-      <h2>Community: {`${communityCount} / ${communityGoal}`}</h2>
+      <h2>Community Goal: {`${communityCount} / ${communityGoal}`}</h2>
       <div className="progress-bar-container">
         <Progress
           percent={((communityCount / communityGoal) * 100).toFixed(1)}
@@ -130,7 +130,7 @@ const GoalDisplay = ({ user }) => {
       {
         user ? (
           <>
-            <h2>You: {`${userCount} / ${user.n_job_apps_goal}`}</h2>
+            <h2>Your Goal: {`${userCount} / ${user.n_job_apps_goal}`}</h2>
             <Form size="big" onSubmit={handleSubmit}>
               <Form.Field>
                 <label>Company Name:</label>
@@ -143,7 +143,17 @@ const GoalDisplay = ({ user }) => {
               <Button size="big" fluid primary>+1 Applied</Button>
             </Form>
           </>
-        ) : null
+        ) : (
+            <Container>
+              <Message icon>
+                <Icon name="trophy" />
+                <Message.Content>
+                  <Message.Header> Fellows </Message.Header>
+                  To participate and contribute to the goal go to <Link to="/register" L>register</Link>, or <Link to="/">home</Link> if you already did.
+                </Message.Content>
+              </Message>
+            </Container>
+          )
       }
     </div>
   )
