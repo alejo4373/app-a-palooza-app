@@ -3,19 +3,19 @@ const JobApplications = require('../db/jobApplications')
 
 router.post('/', async (req, res, next) => {
   const { wss } = req.app.locals
-  const { userId, userName } = req.session
+  const { user } = req.session
   try {
     const application = await JobApplications.add({
       ...req.body,
-      user_id: userId
+      user_id: user.id
     })
     wss.broadcast({
       type: 'NEW_APPLICATION_ADDED',
-      payload: { ...application, userName }
+      payload: { ...application, user }
     })
     res.status(201).json({
       message: "New application added",
-      application: { ...application, userName }
+      application: { ...application, user }
     })
   } catch (err) {
     next(err)
@@ -48,9 +48,9 @@ router.get('/community/goal', async (req, res, next) => {
 })
 
 router.get('/user/goal', async (req, res, next) => {
-  const { userId } = req.session
+  const { user } = req.session
   try {
-    const data = await JobApplications.getUserGoal(userId)
+    const data = await JobApplications.getUserGoal(user.id)
     res.json({
       message: "Retrieved user's job applications goal",
       goal: data.n_job_apps_goal
