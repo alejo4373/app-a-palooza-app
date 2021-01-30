@@ -1,0 +1,21 @@
+{
+  "name": "app-a-palooza-app",
+  "version": "1.0.0",
+  "description": "An app to be used during the App-A-Palooza part of the Own Your Pursuit Event.",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd server && npm start",
+    "heroku-prebuild": "cd server && npm install && cd ../client && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alejo4373/app-a-palooza-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alejo4373/app-a-palooza-app/issues"
+  },
+  "homepage": "https://github.com/alejo4373/app-a-palooza-app#readme"
+}
