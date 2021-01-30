@@ -7,9 +7,8 @@ router.post('/', async (req, res, next) => {
   try {
     const user = await Users.add(req.body)
 
-    // Add user id and name to the session for use when adding an application
-    req.session.userId = user.id
-    req.session.userName = user.name
+    // Store user info in the session for use when adding an application
+    req.session.user = user
 
     wss.broadcast({ type: 'NEW_USER_ADDED', payload: user })
 
@@ -23,13 +22,10 @@ router.post('/', async (req, res, next) => {
 });
 
 router.get('/current', (req, res, next) => {
-  if (req.session.userId) {
+  if (req.session.user) {
     res.json({
       message: "Retrieved current user session",
-      user: {
-        id: req.session.userId,
-        name: req.session.userName
-      }
+      user: req.session.user
     })
   } else {
     res.json({
