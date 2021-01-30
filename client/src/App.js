@@ -38,7 +38,7 @@ function App() {
           <GoalsDisplay user={user} />
         </Route>
         <Route path="/register">
-          <RegistrationForm user={user} />
+          <RegistrationForm user={user} setUser={setUser} />
         </Route>
         <Route path="/community">
           <h1>community</h1>
