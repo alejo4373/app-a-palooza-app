@@ -57,7 +57,7 @@ const RegistrationForm = ({ user, setUser }) => {
             onChange={(e) => setGoal(e.target.value)}
           />
         </Form.Field>
-        <Button primary>Own Your Pursuit</Button>
+        <Button fluid primary>Own Your Pursuit</Button>
       </Form>
     </div>
   )
