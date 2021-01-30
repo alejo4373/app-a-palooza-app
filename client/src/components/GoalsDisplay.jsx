@@ -2,6 +2,10 @@ import { Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Form, Input, Button } from 'semantic-ui-react';
 
+const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+const SOCKET_ADDRESS = `${WS_PROTOCOL}//${window.location.host}/my-websockets`
+let socket;
+
 const GoalDisplay = ({ user }) => {
   const [communityGoal, setCommunityGoal] = useState(0)
   const [communityCount, setCommunityCount] = useState(0)
@@ -50,6 +54,42 @@ const GoalDisplay = ({ user }) => {
       console.error(err)
     }
   }
+
+  useEffect(() => {
+    const socketListeners = {
+      message: (e) => {
+        const { type, payload } = JSON.parse(e.data)
+
+        switch (type) {
+          case "NEW_APPLICATION_ADDED":
+            setCount(count => parseInt(count) + 1)
+            break;
+          default:
+            console.log("socket message:", JSON.stringify(e))
+        }
+      },
+
+      error: (e) => {
+        window.alert('WebSocket error: Please refresh the page', JSON.stringify(e))
+        console.log('WebSocket error', e)
+      },
+
+      open: (e) => {
+        console.log('WebSocket connection established', e)
+      },
+
+      close: (e) => {
+        console.log('WebSocket connection closed', e)
+      }
+    }
+    socket = new WebSocket(SOCKET_ADDRESS)
+    socket.addEventListener('message', socketListeners.message)
+    socket.addEventListener('error', socketListeners.error)
+    socket.addEventListener('open', socketListeners.open)
+    socket.addEventListener('close', socketListeners.close)
+
+    return () => socket.close()
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()

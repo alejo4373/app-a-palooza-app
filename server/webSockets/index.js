@@ -1,4 +1,5 @@
 const WebSocket = require('ws')
+const url = require('url')
 
 const sendTo = (socket, data) => {
   socket.send(JSON.stringify(data))
@@ -11,13 +12,26 @@ function heartbeat() {
  * Web Socket Server setup
  */
 const init = (server) => {
-  var wss = new WebSocket.Server({ server })
+  var wss = new WebSocket.Server({ noServer: true })
+
+  server.on('upgrade', (req, socket, head) => {
+    const pathname = url.parse(req.url).pathname
+    if (pathname === '/my-websockets') {
+      wss.handleUpgrade(req, socket, head, (ws) => {
+        wss.emit('connection', ws, req)
+      })
+    } else {
+      console.log('Invalid socket connection attempt')
+      socket.destroy()
+    }
+  })
 
   wss.on('connection', (ws) => {
     ws.isAlive = true
     ws.on('pong', heartbeat)
     ws.on('message', (data) => { })
 
+    console.log('A client Connected')
     sendTo(ws, { message: 'CLIENT_CONNECTED' })
   })
 
