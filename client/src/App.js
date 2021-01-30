@@ -1,9 +1,9 @@
 import './App.css';
 import 'semantic-ui-css/semantic.min.css'
-import { API_URL } from './CONSTANTS'
 import { Switch, Route, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import GoalsDisplay from './components/GoalsDisplay'
+import RegistrationForm from './components/RegistrationForm';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -12,13 +12,13 @@ function App() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch(`${API_URL}/users/current`)
+        const res = await fetch(`/api/users/current`)
         const data = await res.json()
         setUser(data.user)
-        setLoading(false)
       } catch (err) {
-        console.error(err)
+        window.alert(err)
       }
+      setLoading(false)
     }
 
     fetchUser()
@@ -38,7 +38,7 @@ function App() {
           <GoalsDisplay user={user} />
         </Route>
         <Route path="/register">
-          <h1>Register</h1>
+          <RegistrationForm user={user} />
         </Route>
         <Route path="/community">
           <h1>community</h1>
