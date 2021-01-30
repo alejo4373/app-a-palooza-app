@@ -20,21 +20,22 @@ Humans like to see numbers go up and thinking that your job application as a sin
 
 [On Figma here](https://www.figma.com/file/Pr6nGTZCEgSN6uxjX3Ym59/App-a-palooza?node-id=0%3A1)
 
-## Server 
+## Server
 
 ### Endpoints
 
 Root endpoint: `{{server_address}}/api`
 
-| Method | Endpoint                           | Description                              | Done/Priority |
-| ------ | ---------------------------------- | ---------------------------------------- | ------------- |
-| `POST` | `/users`                           | Add a new user with its goal             | ✅ / 1         |
-| `GET`  | `/users/current`                   | Retrieve the current session information | ✅ / 2         |
-| `POST` | `/job-applications`                | Add a new job application                | ✅ / 1         |
-| `GET`  | `/job-applications`                | Get all users' job applications          | ☑️ / 4         |
-| `GET`  | `/job-applications/count`          | Get count of all users' job applications | ✅ / 2         |
-| `GET`  | `/job-applications/community/goal` | Sum of all users goals (the community)   | ✅ / 2         |
-| `GET`  | `/job-applications/user/goal`      | Retrieve a current user's goals          | ✅ / 3         |
+| Method | Endpoint                            | Description                                            | Done/Priority |
+| ------ | ----------------------------------- | ------------------------------------------------------ | ------------- |
+| `POST` | `/users`                            | Add a new user with its goal                           | ✅ / 1         |
+| `GET`  | `/users/current`                    | Retrieve the current session information               | ✅ / 2         |
+| `POST` | `/job-applications`                 | Add a new job application                              | ✅ / 1         |
+| `GET`  | `/job-applications`                 | Get all users' job applications                        | ☑️ / 4         |
+| `GET`  | `/job-applications/community/count` | Get count of all users' job applications               | ✅ / 2         |
+| `GET`  | `/job-applications/community/goal`  | Sum of all users goals (the community)                 | ✅ / 2         |
+| `GET`  | `/job-applications/user/goal`       | Retrieve a current user's goals                        | ✅ / 3         |
+| `GET`  | `/job-applications/user/count`      | Retrieve the current user's count of applications sent | ✅ / 3         |
 
 ### Web Sockets Messages
 
