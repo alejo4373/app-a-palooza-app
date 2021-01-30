@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Form, Input, Button, Progress, Message, Container, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
+import Confetti from 'react-confetti'
+import useWindowSize from 'react-use/lib/useWindowSize'
 
 const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
 const SOCKET_ADDRESS = `${WS_PROTOCOL}//${window.location.host}/my-websockets`
@@ -12,8 +14,9 @@ const GoalDisplay = ({ user }) => {
   const [communityCount, setCommunityCount] = useState(0)
   const [userCount, setCount] = useState(0)
   const [companyName, setCompanyName] = useState('')
+  const progressPercentage = (communityCount / communityGoal) * 100
   const { addToast } = useToasts()
-
+  const { width, height } = useWindowSize()
   const fetchCommunityGoal = async () => {
     try {
       const res = await fetch('/api/job-applications/community/goal')
@@ -118,10 +121,14 @@ const GoalDisplay = ({ user }) => {
 
   return (
     <div>
+      {progressPercentage >= 100
+        ? <Confetti width={width} height={height} />
+        : null
+      }
       <h2>Community Goal: {`${communityCount} / ${communityGoal}`}</h2>
       <div className="progress-bar-container">
         <Progress
-          percent={((communityCount / communityGoal) * 100).toFixed(1)}
+          percent={progressPercentage.toFixed(1)}
           indicating
           progress
           size='big'
